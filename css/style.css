@@ -84,17 +84,25 @@ Click sul contatto mostra la conversazione del contatto cliccato */
 
 #contatti li {
     padding: 10px 20px;
+    cursor: pointer;
 }
 
 #contatti img {
     width: 62px;
     border-radius: 50%;
 }
+
+#contatti .active {
+    background-color: #e9ebeb;
+    color: black;
+    border: 0px;
+}
 /* FINE CONTATTI */
 
 
-.messaggi {
+.chat {
     background-image: url("../img/mine.jpg");
+    height: 738px;
 }
 
 main {

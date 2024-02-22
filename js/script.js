@@ -4,7 +4,7 @@ createApp({
     data() {
         return {
 
-            activeChatIndex: 0,
+            currentContactIndex: 0,
             
             contacts: [
                 {
@@ -171,6 +171,16 @@ createApp({
             ]
 
         }
-    }
+    },
+
+    methods: {
+        
+        changeChat(newIndex) {
+
+            this.currentContactIndex = newIndex;
+            // console.log(this.currentContactIndex)
+        }
+
+    },
 
 }).mount("#app");
