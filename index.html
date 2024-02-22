@@ -18,11 +18,113 @@
 <!-- Vue3 -->
 <script src="https://unpkg.com/vue@3"></script>
     
-
+    <div id="background">
+        <div class="green"></div>
+        <div class="white"></div>
+    </div>
 
 
     <div id="app">
         
+
+        <main class="container py-5">
+
+            <div class="row">
+
+                <section class="col-4">
+                    <!-- User -->
+                    <div id="user" class="header d-flex justify-content-between align-items-center">
+                        <div>
+                            <img class="header-img" src="img/avatar_io.jpg" alt="">
+                            Sofia
+                        </div>
+                        <div class="d-flex gap-3">
+                            <i class="fa-solid fa-circle-notch"></i>
+                            <i class="fa-solid fa-message"></i>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                    </div>
+
+                    <!-- Notifiche -->
+                    <div id="notifiche" class="d-flex gap-3">
+                        <div>
+                            <i class="fa-solid fa-bell-slash"></i>
+                        </div>
+                        <div>
+                            <div>Ricevi notifiche di nuovi messaggi</div>
+                            <a href="#">Attiva notifiche desktop</a>
+                        </div>
+                    </div>
+
+                    <!-- Contatti -->
+                    <div id="cerca-contatti">
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            <input type="text" class="form-control" placeholder="Cerca o inizia una nuova chat" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                          </div>
+                    </div>
+                    <div id="contatti">
+                        <ul class="list-group list-group-flush">
+                            <li
+                                v-for="(currentContact, index) in contacts"
+                                class="list-group-item d-flex justify-content-between"
+                            >
+                                <div class="d-flex gap-2">
+                                    <div>
+                                        <img :src='currentContact.avatar' :alt="(index + 1)">
+                                    </div>
+                                    <div>
+                                        <div>
+                                            {{ currentContact.name }}
+                                        </div>
+                                        <div class="small text-body-tertiary">
+                                            Ultimo messaggio
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="small">12:00</div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+    
+                <section 
+                    v-for="(currentChat, index) in contacts" 
+                    class="col-8 d-flex flex-column"
+                    v-show="index == activeChatIndex"
+                    >
+                    <div class="chat-contatti header d-flex justify-content-between align-items-center">
+                        <div class="d-flex gap-2">
+                            <img class="header-img" :src='currentChat.avatar' :alt="(index + 1)">
+                            <div>
+                                <div>
+                                    {{ currentChat.name }}
+                                </div>
+                                <div class="small text-body-tertiary">
+                                    Ultimo accesso oggi alle 12:00
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-3">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <i class="fa-solid fa-paperclip"></i>                        
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                    </div>
+
+                    <div class="messaggi flex-grow-1">
+                        
+                    </div>
+
+                    <div class="input-text d-flex align-items-center">
+                        <i class="fa-regular fa-face-smile"></i>
+                        <input type="text" class="form-control mx-3" placeholder="Scrivi un messaggio" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <i class="fa-solid fa-microphone"></i>
+                    </div>
+                </section>
+            </div>
+
+        </main>
 
 
 
