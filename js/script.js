@@ -168,8 +168,21 @@ createApp({
                         }
                     ],
                 }
-            ]
+            ],
 
+            newMessage: {
+                date: '12:00',
+                message: '',
+                status: 'sent'
+            },
+
+            newAnswer : {
+                date: '12:01',
+                message: 'Ok',
+                status: 'received'
+            },
+
+            searchContact: '',
         }
     },
 
@@ -179,8 +192,36 @@ createApp({
 
             this.currentContactIndex = newIndex;
             // console.log(this.currentContactIndex)
+        },
+
+        addMessage(index) {
+
+            if(this.newMessage.message.trim() != "") {
+
+                this.contacts[index].messages.push({...this.newMessage})
+    
+                this.newMessage.message = ""
+
+            }
+
+            // Da modificare
+            setInterval(this.contacts[index].messages.push({...this.newAnswer}), 1000);
+
+        },
+        
+        
+    },
+
+    computed: {
+
+        // Prova
+        contactsList() {
+            if (this.searchContact.trim().length > 0) {
+                return this.contacts.filter(contact => contact.name.toLowerCase().includes(this.searchContact.trim()))
+            }
+            return this.contacts
         }
 
-    },
+    }
 
 }).mount("#app");

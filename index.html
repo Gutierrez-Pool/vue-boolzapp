@@ -64,12 +64,20 @@
                     <!-- Contatti -->
                     <div id="cerca-contatti">
                         <div class="input-group">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon1"><i
+
+                            <button @keyup.enter="contactsList" class="btn btn-outline-secondary" type="button" id="button-addon1"><i
                                     class="fa-solid fa-magnifying-glass"></i></button>
-                            <input type="text" class="form-control" placeholder="Cerca o inizia una nuova chat"
-                                aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                            <input v-model="searchContact" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Cerca o inizia una nuova chat">
+                            
+                            <!-- Prova -->
+                            <datalist v-if="contactsList.length" id="datalistOptions">
+                                <option v-for="(contact, index) in contactsList" :value='contact.name' @click="changeChat(index)" :class="index == currentContactIndex ? 'active' : '' ">
+                            </datalist>
+
                         </div>
                     </div>
+                    
                     <div id="contatti">
                         <ul class="list-group list-group-flush">
                             <li v-for="(currentContact, index) in contacts" @click="changeChat(index)"
@@ -134,10 +142,16 @@
 
 
                         <div class="input-text d-flex align-items-center">
-                            <i class="fa-regular fa-face-smile"></i>
-                            <input type="text" class="form-control mx-3" placeholder="Scrivi un messaggio"
+
+                            <button>
+                                <i class="fa-regular fa-face-smile"></i>
+                            </button>
+                            <input v-model="newMessage.message" @keyup.enter="addMessage(index)" type="text" class="form-control mx-3" placeholder="Scrivi un messaggio"
                                 aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                            <i class="fa-solid fa-microphone"></i>
+                            
+                            <button @click="addMessage(index)">
+                                <i class="fa-solid fa-microphone"></i>
+                            </button>
                         </div>
                     </div>
                 </section>
