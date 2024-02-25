@@ -195,21 +195,22 @@ createApp({
         },
 
         addMessage(index) {
-
-            if(this.newMessage.message.trim() != "") {
-
-                this.contacts[index].messages.push({...this.newMessage})
-    
-                this.newMessage.message = ""
-
+            if (this.newMessage.message.trim() !== "") {
+              this.contacts[index].messages.push({ ...this.newMessage });
+              this.newMessage.message = "";
+              
+            //   test
+              if (index === this.currentContactIndex) {
+                setTimeout(() => {
+                  this.receiveMessage(this.newAnswer);
+                }, 1000);
+              }
             }
-
-            // Da modificare
-            setInterval(this.contacts[index].messages.push({...this.newAnswer}), 1000);
-
+          },
+        
+        receiveMessage(message) {
+            this.contacts[this.currentContactIndex].messages.push(message);
         },
-        
-        
     },
 
     computed: {
