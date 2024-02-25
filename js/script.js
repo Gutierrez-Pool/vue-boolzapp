@@ -183,6 +183,7 @@ createApp({
             },
 
             searchContact: '',
+
         }
     },
 
@@ -195,10 +196,10 @@ createApp({
         },
 
         addMessage(index) {
-            if (this.newMessage.message.trim() !== "") {
+            if (this.newMessage.message.trim() !== "" && " ") {
               this.contacts[index].messages.push({ ...this.newMessage });
               this.newMessage.message = "";
-              
+
             //   test
               if (index === this.currentContactIndex) {
                 setTimeout(() => {
@@ -211,6 +212,23 @@ createApp({
         receiveMessage(message) {
             this.contacts[this.currentContactIndex].messages.push(message);
         },
+
+
+        // Visualizzare ultimo messaggio
+        lastMessage(index, array) {
+            return index === array.length - 1
+        },
+
+
+        // Cancellare messaggi e chat
+        deleteMessage(messageIndex) {
+            this.contacts[this.currentContactIndex].messages.splice(messageIndex);
+        },
+
+        deleteChat() {
+            this.contacts.splice(this.currentContactIndex, 1);
+        }
+
     },
 
     computed: {

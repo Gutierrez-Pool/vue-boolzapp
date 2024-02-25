@@ -91,12 +91,18 @@
                                         <div>
                                             {{ currentContact.name }}
                                         </div>
-                                        <div class="small text-body-tertiary">
-                                            Ultimo messaggio
+                                        <div v-for="(currentMessage, index) in currentContact.messages" class="small text-body-tertiary">
+                                            <span v-if="lastMessage(index, currentContact.messages)">
+                                               {{ currentMessage.message }} 
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="small">12:00</div>
+                                <div v-for="(currentMessage, index) in currentContact.messages" class="small text-body-tertiary">
+                                    <span v-if="lastMessage(index, currentContact.messages)">
+                                        {{ currentMessage.date }} 
+                                     </span>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -121,7 +127,15 @@
                             <div class="d-flex gap-3">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                                 <i class="fa-solid fa-paperclip"></i>
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                <div class="nav-item dropdown">
+                                    <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" @click="deleteMessage()">Elimina messaggi</a></li>
+                                      <li><a class="dropdown-item" @click="deleteChat()">Elimina chat</a></li>
+                                    </ul>
+                                  </div>
                             </div>
                         </div>
 
