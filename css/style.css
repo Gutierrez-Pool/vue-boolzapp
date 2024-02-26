@@ -79,6 +79,15 @@ main .row {
 /* FINE NOTIFICHE */
 
 
+.filtro-contatti {
+    background-color: #eaeaea;
+    top: 40px;
+    left: 45px;
+    /* width: 88%; */
+    cursor: pointer;
+}
+
+
 /* CONTATTI */
 #cerca-contatti {
     padding: 7px;

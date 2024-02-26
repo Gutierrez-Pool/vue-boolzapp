@@ -23,6 +23,7 @@
     <!-- Vue3 -->
     <script src="https://unpkg.com/vue@3"></script>
 
+    <!-- background color -->
     <div id="background">
         <div class="green"></div>
         <div class="white"></div>
@@ -61,23 +62,30 @@
                         </div>
                     </div>
 
-                    <!-- Contatti -->
+                    <!-- Cerca contatti -->
                     <div id="cerca-contatti">
-                        <div class="input-group">
+                        <div class="input-group d-flex flex-column">
 
-                            <button @keyup.enter="contactsList" class="btn btn-outline-secondary" type="button" id="button-addon1"><i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
-
-                            <input v-model="searchContact" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Cerca o inizia una nuova chat">
+                            <div class="d-flex">
+                                <button @keyup.enter="contactsList" class="btn btn-outline-secondary" type="button" id="button-addon1"><i
+                                        class="fa-solid fa-magnifying-glass"></i></button>
+    
+                                <input v-model="searchContact" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Cerca o inizia una nuova chat">
+                            </div>
                             
-                            <!-- Prova -->
-                            <datalist v-if="contactsList.length" id="datalistOptions">
-                                <option v-for="(contact, index) in contactsList" :value='contact.name' @click="changeChat(index)" :class="index == currentContactIndex ? 'active' : '' ">
-                            </datalist>
+                            <!-- filtro -->
+                            <div class="filtro-contatti position-absolute z-3">
+                                <ul v-for="(contact, index) in contactsList" @click="changeChat(index)" v-show="searchContact" :class="index == contact ? 'active' : '' " class="list-group">
+                                    <li class="list-group-item">
+                                        {{contact.name}}
+                                    </li>
+                                </ul>
+                            </div>
 
                         </div>
                     </div>
                     
+                    <!-- Lista contatti -->
                     <div id="contatti">
                         <ul class="list-group list-group-flush">
                             <li v-for="(currentContact, index) in contacts" @click="changeChat(index)"
@@ -101,17 +109,20 @@
                                 <div v-for="(currentMessage, index) in currentContact.messages" class="small text-body-tertiary">
                                     <span v-if="lastMessage(index, currentContact.messages)">
                                         {{ currentMessage.date }} 
-                                     </span>
+                                    </span>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </section>
 
+                <!-- Chat contatto -->
                 <section v-for="(currentContact, index) in contacts" v-show="index == currentContactIndex"
                     class="col-8">
 
                     <div class="d-flex flex-column active-chat">
+
+                        <!-- Header chat -->
                         <div class="chat-contatti header d-flex justify-content-between align-items-center">
                             <div class="d-flex gap-2">
                                 <img class="header-img" :src='currentContact.avatar' :alt="(index + 1)">
@@ -124,6 +135,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- icone -->
                             <div class="d-flex gap-3">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                                 <i class="fa-solid fa-paperclip"></i>
@@ -139,6 +151,7 @@
                             </div>
                         </div>
 
+                        <!-- Messaggi presenti in chat -->
                         <div class="chat">
                             <div class="messaggi">
 
@@ -154,18 +167,18 @@
                             </div>
                         </div>
 
-
+                        <!-- Input messaggi -->
                         <div class="input-text d-flex align-items-center">
 
-                            <button>
+                            <div>
                                 <i class="fa-regular fa-face-smile"></i>
-                            </button>
+                            </div>
                             <input v-model="newMessage.message" @keyup.enter="addMessage(index)" type="text" class="form-control mx-3" placeholder="Scrivi un messaggio"
                                 aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             
-                            <button @click="addMessage(index)">
+                            <div @click="addMessage(index)">
                                 <i class="fa-solid fa-microphone"></i>
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -178,7 +191,7 @@
     </div>
 
 
-
+    <!-- My script -->
     <script src="js/script.js"></script>
     <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

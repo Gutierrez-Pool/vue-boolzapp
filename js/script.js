@@ -3,8 +3,8 @@ const {createApp} = Vue;
 createApp({
     data() {
         return {
-
-            currentContactIndex: 0,
+            
+            currentContactIndex: '',
             
             contacts: [
                 {
@@ -169,78 +169,85 @@ createApp({
                     ],
                 }
             ],
-
+            
+            // Messaggio inviato
             newMessage: {
                 date: '12:00',
                 message: '',
                 status: 'sent'
             },
-
+            
+            // Risposta automatica
             newAnswer : {
                 date: '12:01',
                 message: 'Ok',
                 status: 'received'
             },
-
+            
+            // ricerca contatti
             searchContact: '',
-
+            
         }
     },
-
+    
     methods: {
         
         changeChat(newIndex) {
-
+            
             this.currentContactIndex = newIndex;
             // console.log(this.currentContactIndex)
         },
-
+        
+        // Inviare messaggi
         addMessage(index) {
             if (this.newMessage.message.trim() !== "" && " ") {
-              this.contacts[index].messages.push({ ...this.newMessage });
-              this.newMessage.message = "";
-
-            //   test
-              if (index === this.currentContactIndex) {
-                setTimeout(() => {
-                  this.receiveMessage(this.newAnswer);
-                }, 1000);
-              }
+                this.contacts[index].messages.push({ ...this.newMessage });
+                this.newMessage.message = "";
+                
+                //   test
+                if (index === this.currentContactIndex) {
+                    setTimeout(() => {
+                        this.receiveMessage(this.newAnswer);
+                    }, 1000);
+                }
             }
-          },
+        },
         
+        // Risposta automatica
         receiveMessage(message) {
             this.contacts[this.currentContactIndex].messages.push(message);
         },
-
-
+        
+        
         // Visualizzare ultimo messaggio
         lastMessage(index, array) {
             return index === array.length - 1
         },
-
-
+        
+        
         // Cancellare messaggi e chat
         deleteMessage(messageIndex) {
             this.contacts[this.currentContactIndex].messages.splice(messageIndex);
         },
-
+        
         deleteChat() {
             this.contacts.splice(this.currentContactIndex, 1);
-        }
-
+        },
+        
     },
-
+    
     computed: {
-
-        // Prova
+        
+        //filtro contatti
         contactsList() {
             if (this.searchContact.trim().length > 0) {
-                return this.contacts.filter(contact => contact.name.toLowerCase().includes(this.searchContact.trim()))
+                return this.contacts.filter((contact) => contact.name.toLowerCase().includes(this.searchContact.trim().toLowerCase()))
             }
-            return this.contacts
+
+            return this.contacts;
+
         }
-
+        
     }
-
+    
 }).mount("#app");
